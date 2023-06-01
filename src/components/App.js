@@ -39,8 +39,6 @@ function App() {
 
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
 
-
-
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -7,12 +7,11 @@ import { usePopupClose } from "./hooks/usePopupClose";
 const InfoTooltip = ({ onClose, isOpen, isRegister }) => {
   usePopupClose(isOpen, onClose);
   return (
-    <div className={`popup_type_tooltip ${isOpen ? "popup_opened" : ""}`}>
-      <div className="popup__container ">
+    <div className={`popup  ${isOpen ? "popup_opened" : ""}`}>
+      <div className="popup__container popup_type_tooltip">
         <button
-          className="popup__close-button"
+          className="popup__close-button popup__close-button_type_tooltip "
           onClick={onClose}
-          id="close-popup-profile"
           type="button"
           aria-label="Закрыть"
         ></button>
