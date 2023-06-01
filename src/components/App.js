@@ -194,37 +194,17 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleCardClick(card) {
-    setSelectedCard(card);
+  function handleCardClick(data) {
+    setSelectedCard({ isOpen: true, ...data });
   }
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(null);
+    setSelectedCard({isOpen: false});
     setIsOpenInfoTooltip(false);
   }
-
- /* const isOpen =
-    isEditAvatarPopupOpen ||
-    isEditProfilePopupOpen ||
-    isAddPlacePopupOpen ||
-    selectedCard;
-
-  useEffect(() => {
-    function closeByEscape(evt) {
-      if (evt.key === "Escape") {
-        closeAllPopups();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("keydown", closeByEscape);
-      return () => {
-        document.removeEventListener("keydown", closeByEscape);
-      };
-    }
-  }, [isOpen]);*/
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
