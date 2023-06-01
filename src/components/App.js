@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-  
+
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -43,14 +43,14 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-    Promise.all([api.getUserInfo(), api.getCards()])
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      Promise.all([api.getUserInfo(), api.getCards()])
+        .then(([user, cards]) => {
+          setCurrentUser(user);
+          setCards(cards);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
     }
   }, [isLoggedIn]);
 
@@ -63,18 +63,19 @@ function App() {
     if (!token || isLoggedIn) {
       return;
     }
-    auth.getContent(token).then((user) => {
-      setUserData(user.data);
-      setIsLoggedIn(true);
-      navigate("/");
-    })
+    auth
+      .getContent(token)
+      .then((user) => {
+        setUserData(user.data);
+        setIsLoggedIn(true);
+        navigate("/");
+      })
       .catch((err) => {
         console.log(err);
       });
   }, [token, isLoggedIn, navigate]);
 
   const registerUser = (email, password) => {
-
     auth
       .register(email, password)
       .then(() => {
@@ -93,8 +94,6 @@ function App() {
           message: "Что-то пошло не так! Попробуйте ещё раз.",
         });
         console.log(err);
-
-
       });
   };
 
@@ -202,7 +201,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard({isOpen: false});
+    setSelectedCard({ isOpen: false });
     setIsOpenInfoTooltip(false);
   }
 
@@ -212,69 +211,69 @@ function App() {
         <div className="page">
           <Header logOut={logOut} userData={userData} />
           <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute
-                loggedIn={isLoggedIn}
-                element={Main}
-                onEditProfile={handleEditProfileClick}
-                onAddPlace={handleAddPlaceClick}
-                onEditAvatar={handleEditAvatarClick}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
-                cards={cards}
-                userData={userData}
-                logOut={logOut}
-              />}
-          />
-          <Route
-            path="/sign-in"
-            element={
-              <Login
-                isloggedIn={isLoggedIn}
-                loginUser={loginUser}
-                errorMessage={loginError}
-                onClose={closeAllPopups}
-                title="Вход"
-                buttonText="Войти"
-              />}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute
+                  loggedIn={isLoggedIn}
+                  element={Main}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  cards={cards}
+                  userData={userData}
+                  logOut={logOut}
+                />
+              }
+            />
+            <Route
+              path="/sign-in"
+              element={
+                <Login
+                  isloggedIn={isLoggedIn}
+                  loginUser={loginUser}
+                  errorMessage={loginError}
+                  onClose={closeAllPopups}
+                  title="Вход"
+                  buttonText="Войти"
+                />
+              }
+            />
+            <Route
+              path="/sign-up"
+              element={
+                <Register
+                  isloggedIn={isLoggedIn}
+                  registerUser={registerUser}
+                  onClose={closeAllPopups}
+                  title={"Регистрация"}
+                  buttonText={"Зарегистрироваться"}
+                />
+              }
+            />
 
-          />
-          <Route
-            path="/sign-up"
-            element={
-              <Register
-                isloggedIn={isLoggedIn}
-                registerUser={registerUser}
-                onClose={closeAllPopups}
-                title={"Регистрация"}
-                buttonText={"Зарегистрироваться"}
-              />
-            }
-          />
+            <Route
+              path="/*"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Navigate to="/sign-in" replace />
+                )
+              }
+            />
+          </Routes>
+          {isLoggedIn && <Footer />}
 
-          <Route
-            path="/*"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Navigate to="/sign-in" replace />
-              )
-            }
+          <InfoTooltip
+            isRegister={isRegister}
+            isOpen={isOpenInfoTooltip}
+            onClose={closeAllPopups}
+            alt={"Статус"}
           />
-        </Routes>
-        {isLoggedIn && <Footer />}
-
-        <InfoTooltip
-          isRegister={isRegister}
-          isOpen={isOpenInfoTooltip}
-          onClose={closeAllPopups}
-          alt={"Статус"}
-        />
-         
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
@@ -293,14 +292,14 @@ function App() {
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
           />
-        <PopupWithForm
-          name="delete"
-          title="Вы уверены?"
-          buttonText="Да"
-          onClose={closeAllPopups}
-        />
+          <PopupWithForm
+            name="delete"
+            title="Вы уверены?"
+            buttonText="Да"
+            onClose={closeAllPopups}
+          />
 
-          <ImagePopup card={selectedCard}  onClose={closeAllPopups} />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
       </div>
     </CurrentUserContext.Provider>

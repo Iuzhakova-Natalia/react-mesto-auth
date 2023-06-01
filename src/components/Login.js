@@ -6,16 +6,13 @@ const Login = ({ loginUser }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    loginUser(values)
+    loginUser(values);
   };
 
   return (
     <div className="authorization">
       <h2 className="authorization__title">Вход</h2>
-      <form
-        onSubmit={handleSubmit}
-        className="authorization__form"
-      >
+      <form onSubmit={handleSubmit} className="authorization__form">
         <input
           id="email"
           name="email"
@@ -36,20 +33,13 @@ const Login = ({ loginUser }) => {
           onChange={handleChange}
           autoComplete="off"
         ></input>
-        <button
-          to="/sign-up"
-          type="submit"
-          className="authorization__button"
-        >
+        <button to="/sign-up" type="submit" className="authorization__button">
           Войти
         </button>
       </form>
       <div className="authorization__signup">
         <p>Ещё не зарегистрированы?</p>
-        <Link
-          to="/sign-up"
-          className="authorization__link"
-        >
+        <Link to="/sign-up" className="authorization__link">
           Регистрация
         </Link>
       </div>

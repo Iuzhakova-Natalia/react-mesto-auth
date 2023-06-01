@@ -3,7 +3,6 @@ import infoToltipSuccess from "../images/Union.png";
 import infoToltipFailure from "../images/UnionFail.png";
 import { usePopupClose } from "./hooks/usePopupClose";
 
-
 const InfoTooltip = ({ onClose, isOpen, isRegister }) => {
   usePopupClose(isOpen, onClose);
   return (

@@ -1,5 +1,5 @@
 Проект: Место (React)
-Cсылка на проект
+Cсылка на проект https://iuzhakova-natalia.github.io/react-mesto-auth/
 
 ОПИСАНИЕ
 

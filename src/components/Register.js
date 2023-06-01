@@ -6,23 +6,20 @@ const Register = ({ registerUser }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    registerUser(values)
+    registerUser(values);
   };
 
   return (
     <div className="authorization">
       <h2 className="authorization__title">Регистрация</h2>
-      <form
-        onSubmit={handleSubmit}
-        className="authorization__form"
-      >
+      <form onSubmit={handleSubmit} className="authorization__form">
         <input
           id="email"
           name="email"
           type="email"
           className="authorization__input"
           placeholder="Email"
-          value={values.email || ''}
+          value={values.email || ""}
           onChange={handleChange}
         ></input>
         <input
@@ -31,23 +28,16 @@ const Register = ({ registerUser }) => {
           type="password"
           className="authorization__input"
           placeholder="Пароль"
-          value={values.password || ''}
+          value={values.password || ""}
           onChange={handleChange}
         ></input>
-        <button
-          to="/sign-in"
-          type="submit"
-          className="authorization__button"
-        >
+        <button to="/sign-in" type="submit" className="authorization__button">
           Зарегистрироваться
         </button>
       </form>
       <div className="authorization__signup">
         <p>Уже зарегистрированы?</p>
-        <Link
-          to="/login"
-          className="authorization__link"
-        >
+        <Link to="/login" className="authorization__link">
           Войти
         </Link>
       </div>
